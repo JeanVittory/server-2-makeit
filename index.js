@@ -1,11 +1,22 @@
 import express from 'express';
-import { handlerProducts } from './handlers/handlerProducts.handler.js';
-import { handlerInfo } from './handlers/handlerInfo.handler.js';
-import { handlerAbout } from './handlers/handlerAbout.handlers.js';
+import {
+	handlerProducts,
+	handlerProductsById,
+	handlerProductsDeleteById,
+	handlerAbout,
+	handlerInfo,
+	handlerProductsPost,
+} from './handlers/handlersProducts.js';
+import morgan from 'morgan';
 
 const app = express();
+app.use(morgan('tiny'));
+app.use(express.json());
 
 app.get('/api/products', handlerProducts);
+app.get('/api/products/:id', handlerProductsById);
+app.post('/api/products', handlerProductsPost);
+app.delete('/api/products/:id', handlerProductsDeleteById);
 app.get('/info', handlerInfo);
 app.get('/about', handlerAbout);
 
